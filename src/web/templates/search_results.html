@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Bookstore{% endblock %}
+
+{% block content %}
+<h2>Search Results</h2>
+<form method="POST">
+    <input type="text" name="keyword" value="{{ keyword }}" placeholder="Search for books">
+    <button type="submit">Search</button>
+</form>
+
+{% if books %}
+<h3>Results for "{{ keyword }}"</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>${{ "%.2f"|format(book.price) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No results found for "{{ keyword }}".</p>
+{% endif %}
+{% endblock %}
